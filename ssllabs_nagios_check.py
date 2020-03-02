@@ -67,6 +67,9 @@ def main(argv):
     if 'status' in data:
         if data['status'] not in {'READY', 'ERROR'}:
             print("[%s] processing result..." % (servername))
+        if data['status'] == 'ERROR':
+            print("[%s] got an error: %s" % (servername, data['statusMessage']))
+            exitcode = 3
         elif data['status'] == 'READY':
             for e in data['endpoints']:
                 if 'statusMessage' in e and e['statusMessage'] == 'Ready':
